@@ -10,10 +10,14 @@
     "type": "git",
     "url": "CSV Download: Export all student and interview data in CSV format."
   },
+  "type": "module",
   "author": "Rajat thakkar",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1",
+    "nodemon": "^3.1.7"
   }
 }
