@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        .signin-container {
+            width: 100%;
+            max-width: 280px; /* Reduced width for smaller container */
+            background-color: #fff;
+            padding: 20px; /* Reduced padding */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px; /* Reduced margin */
+            color: #333;
+            font-size: 18px; /* Reduced font size */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Reduced margin */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px; /* Reduced margin */
+            color: #666;
+            font-weight: 500;
+            font-size: 14px; /* Slightly reduced font size */
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 10px; /* Reduced padding */
+            font-size: 14px; /* Reduced font size */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px; /* Reduced padding */
+            background-color: #007bff;
+            color: #fff;
+            font-size: 14px; /* Reduced font size */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px; /* Reduced margin */
+        }
+
+        .forgot-password a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 12px; /* Reduced font size */
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #0056b3;
+        }
+
+        .no-account {
+            text-align: center;
+            margin-top: 10px; /* Reduced margin */
+        }
+
+        .no-account a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 12px; /* Reduced font size */
+            transition: color 0.3s ease;
+        }
+
+        .no-account a:hover {
+            color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="signin-container">
+        <h2>Sign In</h2>
+        <form action="/signin" method="POST">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="/forgot-password">Forgot your password?</a>
+        </div>
+
+        <div class="no-account">
+            <a href="/signup">Don't have an account? Sign up</a>
+        </div>
+    </div>
+
+</body>
+</html>
