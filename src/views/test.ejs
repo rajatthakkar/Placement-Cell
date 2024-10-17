@@ -90,10 +90,14 @@
 
         <!-- Right side profile and logout -->
         <div class="nav-right">
-            <span class="profile-name">John Doe</span>
-            <button class="logout-btn">Log Out</button>
+            <span class="profile-name"><%= userName %></span> <!-- Dynamically displaying user's name -->
+            <form action="/logout" method="POST">
+                <button type="submit" class="logout-btn">Log Out</button>
+            </form>
         </div>
     </nav>
+
+
 
 </body>
 </html>

@@ -2,7 +2,8 @@
   "name": "placement-cell",
   "version": "1.0.0",
   "description": "The project involves developing a web application that enables employees to manage student interview data and download it in CSV format. Key functionalities include:",
-  "main": "Student and Interview Managem",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "test": "ege, status, and course scores (DSA, WebD, React). Manage interviews with company names and dates."
   },
@@ -10,13 +11,16 @@
     "type": "git",
     "url": "CSV Download: Export all student and interview data in CSV format."
   },
-  "type": "module",
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
   "author": "Rajat thakkar",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "express-ejs-layouts": "^2.5.1",
     "mongoose": "^8.7.1",
     "nodemon": "^3.1.7"
   }
