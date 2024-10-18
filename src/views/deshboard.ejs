@@ -142,39 +142,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John Doe</td>
-                        <td>john@example.com</td>
-                        <td>ABC College</td>
-                        <td>2024</td>
-                        <td>Pass</td>
-                        <td>80</td>
-                        <td>75</td>
-                        <td>90</td>
-                        <td>
-                            <button class="btn">Edit</button>
-                            <button class="btn">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith</td>
-                        <td>jane@example.com</td>
-                        <td>XYZ College</td>
-                        <td>2023</td>
-                        <td>Fail</td>
-                        <td>60</td>
-                        <td>65</td>
-                        <td>70</td>
-                        <td>
-                            <button class="btn">Edit</button>
-                            <button class="btn">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Add more student rows as needed -->
+                    <% studentsData.forEach(function(student) { %>
+                        <tr>
+                            <td><%= student.name %></td>
+                            <td><%= student.email %></td>
+                            <td><%= student.college %></td>
+                            <td><%= student.batch %></td>
+                            <td><%= student.status %></td>
+                            <td><%= student.dsa_score %></td>
+                            <td><%= student.web_score %></td>
+                            <td><%= student.react_score %></td>
+                            <td>
+                                <button class="btn">Edit</button>
+                                <button class="btn">Delete</button>
+                            </td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
-
+    
         <!-- Right Section: Company Details -->
         <div class="company-details">
             <h3>Company Details</h3>
@@ -182,47 +169,80 @@
                 <label for="company-name">Select Company</label>
                 <select id="company-name">
                     <option value="">-- Select Company --</option>
-                    <option value="abc">ABC Company</option>
-                    <option value="xyz">XYZ Company</option>
-                    <option value="pqr">PQR Company</option>
+                    <% interviewsResult.map(function(interview) { %>
+                        <option value="<%= interview._id %>" data-cmpname="<%= interview.cmpname %>" data-date="<%= interview.date %>" data-students='<%= JSON.stringify(interview.students) %>'>
+                            <%= interview.cmpname %>
+                        </option>
+                    <% }) %>
                 </select>
             </div>
-
+    
+            <!-- Company Info Section -->
             <div id="company-info" style="display: none;">
-                <h4>Company Name: ABC</h4>
-                <p>Date: 2024-10-16</p>
-                <p>Enrollment Students:</p>
-                <div class="form-group">
-                    <label for="student-email">Student Email</label>
-                    <input type="email" id="student-email" placeholder="Enter student email">
-                </div>
-
-                <div class="form-group">
-                    <label for="result">Result</label>
-                    <select id="result">
-                        <option value="pass">Pass</option>
-                        <option value="fail">Fail</option>
-                    </select>
-                </div>
-
-                <button class="action-btn">Add Student</button>
-                <button class="action-btn">Update</button>
+                <h4>Company Name: <span id="company-name-display"></span></h4>
+                <p>Date: <span id="interview-date"></span></p>
+                <p>Enrolled Students:</p>
+                <ul id="students-list"></ul>
+    
+                <form action="/eligible-students" method="post">
+                    <!-- Hidden input for company ID -->
+                    <input type="hidden" id="company-id" name="companyId">
+    
+                    <div class="form-group">
+                        <label for="student-email">Student Email</label>
+                        <input type="email" id="student-email" placeholder="Enter student email" name="email">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="result">Result</label>
+                        <select id="result" name="status">
+                            <option value="pass">Pass</option>
+                            <option value="fail">Fail</option>
+                        </select>
+                    </div>
+    
+                    <button type="submit" class="action-btn">Add Student</button>
+                    <button type="submit" class="action-btn">Update</button>
+                </form>
             </div>
         </div>
     </div>
-
+    
     <script>
         // Show company details based on dropdown selection
-        document.getElementById('company-name').addEventListener('change', function() {
-            const selectedValue = this.value;
+        document.getElementById('company-name').addEventListener('change', function () {
+            const selectedOption = this.options[this.selectedIndex];
+    
+            // Get the selected company's information from the option's data attributes
+            const companyName = selectedOption.getAttribute('data-cmpname');
+            const interviewDate = selectedOption.getAttribute('data-date');
+            const students = JSON.parse(selectedOption.getAttribute('data-students'));
+            const companyId = selectedOption.value;  // Get the selected company's ID
+    
+            // Update the company info section
             const companyInfo = document.getElementById('company-info');
-            if (selectedValue) {
+            if (companyName) {
+                // Display the company info
                 companyInfo.style.display = 'block';
+    
+                // Update the displayed company name and interview date
+                document.getElementById('company-name-display').textContent = companyName;
+                document.getElementById('interview-date').textContent = new Date(interviewDate).toLocaleDateString();
+    
+                // Populate the student list
+                const studentsList = document.getElementById('students-list');
+                studentsList.innerHTML = students.map(student => `<li>${student.email}</li>`).join('');
+    
+                // Set the hidden input value to the selected company's ID
+                document.getElementById('company-id').value = companyId;
             } else {
+                // Hide the company info if no company is selected
                 companyInfo.style.display = 'none';
             }
         });
     </script>
+    
+    
 <!-- 
 </body>
 </html> -->

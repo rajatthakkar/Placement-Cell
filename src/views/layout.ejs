@@ -76,7 +76,7 @@
             padding: 20px; /* Padding */
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 400px; /* Width of the box */
+            width: 800px; /* Width of the box */
             max-height: 300px; /* Limit height */
         }
 
@@ -459,18 +459,21 @@
     <nav class="navbar">
         <!-- Left side icons -->
         <div class="nav-left">
-            <a href="#home"><i class="fas fa-home"></i> Home</a>
-            <a href="#dashboard"><i class="fas fa-briefcase"></i> Placement Cell Dashboard</a>
-            <a href="#add-student"><i class="fas fa-user-plus"></i> Add New Student</a>
-            <a href="#add-interview"><i class="fas fa-calendar-plus"></i> Add New Interview</a>
-            <a href="#download-report"><i class="fas fa-download"></i> Download Report</a>
+            <a href="/home"><i class="fas fa-home"></i> Home</a>
+            <a href="/dashboard"><i class="fas fa-briefcase"></i> Placement Cell Dashboard</a>
+            <a href="/add-student"><i class="fas fa-user-plus"></i> Add New Student</a>
+            <a href="/add-interview"><i class="fas fa-calendar-plus"></i> Add New Interview</a>
+            <a href="/download-report"><i class="fas fa-download"></i> Download Report</a>
         </div>
 
         <!-- Right side profile and logout -->
+       <%if(locals.userEmail) {%>
+        <%console.log(locals.userEmail)%>
         <div class="nav-right">
             <span class="profile-name">John Doe</span>
-            <button class="logout-btn">Log Out</button>
+            <button href="/logout" class="logout-btn">Log Out</button>
         </div>
+       <%}%>
     </nav>
 
        <!-- Container for dynamic content -->

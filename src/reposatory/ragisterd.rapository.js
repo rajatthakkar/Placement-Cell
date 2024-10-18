@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import userSchema from "../models/users.schmea.js";
-const User = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);
 export default class RagisterdReposatory{
 
      async signup(userData){
