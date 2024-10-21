@@ -7,7 +7,7 @@ dotenv.config();
 // Logging the result of the dotenv.config() to see if it loaded successfully
 console.log(dotenv.config()); 
 // Access the environment variables defined in the .env file
-const url = process.env.MONGOURL; // MongoDB connection URL
+const url = process.env.MONGOURL ; // MongoDB connection URL
      // Server port
 // Logging the MongoDB URL and server port to the console
 console.log('MongoDB URL:', url);   // Output: MongoDB URL: mongodb://localhost:27017/placement_cell

@@ -17,7 +17,7 @@ import { auth } from './src/middlewares/auth.middleware.js';
 import csvtojson from 'csvtojson'
 dotenv.config();
 // Getting the PORT value from environment variables
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;;
 //instance of Class
 const ragisterController = new RegisteredController()
 const desboardController = new DeshboardController()
