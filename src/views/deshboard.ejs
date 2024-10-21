@@ -153,8 +153,11 @@
                             <td><%= student.web_score %></td>
                             <td><%= student.react_score %></td>
                             <td>
-                                <button class="btn">Edit</button>
-                                <button class="btn">Delete</button>
+                                <form action="/edite-student/<%= student._id %>" method="post">
+                                    <button type="submit" class="btn">Edit</button>
+                                </form>
+                                
+                                <button class="btn"> <a href="/delete-student/<%= student._id %>">Delete<a></button>
                             </td>
                         </tr>
                     <% }) %>

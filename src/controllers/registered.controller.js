@@ -1,6 +1,6 @@
 import path from 'path';
 import RagisterdReposatory from '../reposatory/ragisterd.rapository.js';
-
+import { Student } from '../reposatory/nav.reposatory.js';
 export default class RegisteredController {
     constructor() {
         this.ragisterRepo = new RagisterdReposatory()
@@ -65,7 +65,8 @@ export default class RegisteredController {
             return res.status(500).json({ message: 'Internal server error.' });
         }
     }
-    logout(){
+    async logout(req,res){
+        console.log("in side log out fun")
         req.session.destroy((err) => {
             if (err) {
                 console.error('Error destroying session:', err);
@@ -76,7 +77,7 @@ export default class RegisteredController {
             res.clearCookie('connect.sid'); // 'connect.sid' is the default cookie name for express-session
 
             // Redirect the user to the login page or home after logout
-            return res.redirect('/login'); // or res.send('Logged out successfully.');
+            return res.redirect('/'); // or res.send('Logged out successfully.');
         });
     }
 

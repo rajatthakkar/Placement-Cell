@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import studentSchema from "../models/student.schema.js";
 import InterviewSchema from "../models/interview.schema.js";
 import { User } from "./ragisterd.rapository.js";
-const Student = mongoose.model('Student', studentSchema);
+export const Student = mongoose.model('Student', studentSchema);
 const InterviewModal = mongoose.model('Interview', InterviewSchema);
 export default class DeshboardRepo{
 
@@ -94,5 +94,43 @@ export default class DeshboardRepo{
                 }
              
           }
+      }
+      async deleteStudent(id) {
+          try {
+             
+              // Use findByIdAndDelete to delete the student by their Object ID
+              const deletedStudent = await Student.findByIdAndDelete(id);
+              console.log('Deleted Student:', deletedStudent);
+              return { success: true, message: 'Student deleted successfully' };
+          } catch (error) {
+              console.error('Error deleting student:', error);
+              return { success: false, message: 'Server Error', error: error.message };
+          }
+      }
+      async updaeStudentForm(id,data){
+          try {
+               // Find the student by ID and update the fields with the provided data
+               const updatedStudent = await Student.findByIdAndUpdate(
+                   id, 
+                   { 
+                       name: data.name,
+                       email: data.email,
+                       college: data.college,
+                       batch: data.batch,
+                       status: data.status,
+                       dsa_score: data.dsa_score,
+                       web_score: data.web_score,
+                       react_score: data.react_score
+                   }, 
+                   { new: true }  // This option ensures the returned document is the updated one
+               );
+               // Check if the student was found and updated
+               if (!updatedStudent) {
+                   return { status: false, message: "Student not found" };
+               }
+               return { status: true, message: "Student data updated successfully", data: updatedStudent };
+           } catch (error) {
+               return { status: false, message: "Server error", error: error };
+           }
       }
 }

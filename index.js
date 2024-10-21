@@ -13,6 +13,7 @@ import createMongooseConnection from "./src/config/mongooseConfig.js";
 import ejsLayouts from 'express-ejs-layouts';
 // Loading environment variables from the .env file
 import { auth } from './src/middlewares/auth.middleware.js';
+import csvtojson from 'csvtojson'
 dotenv.config();
 // Getting the PORT value from environment variables
 const PORT = process.env.PORT;
@@ -53,24 +54,34 @@ app.get('/ragisterd',(req,res)=>{
 app.post('/signup', (req, res) => {
     ragisterController.signup(req, res);
 });
-app.get('/dashboard',(req, res) => {
+app.get('/dashboard',auth,(req, res) => {
     desboardController.deshboard(req,res)
 });
 app.get('/logout',ragisterController.logout)
-app.get('/add-student',desboardController.studentForm)
-app.post('/studentdata',(req,res)=>{
+app.get('/add-student',auth,desboardController.studentForm)
+app.post('/studentdata',auth,(req,res)=>{
     desboardController.addStudentData(req,res)
 })
-app.get('/add-interview',(req,res)=>{
+app.get('/add-interview',auth,(req,res)=>{
      desboardController.showInterviewForm(req,res)
 })
-app.post('/add-interview',(req,res)=>{
+app.post('/add-interview',auth,(req,res)=>{
     desboardController.addCompaneyDetails(req,res)
 })
-app.post('/eligible-students',(req,res)=>{
+app.post('/eligible-students',auth,(req,res)=>{
     desboardController.eligibleStudents(req,res)
 })
-
+app.get('/delete-student/:id', auth,(req, res) => {
+    desboardController.deleteStudent(req, res);
+});
+app.post('/edite-student/:id',auth,(req,res)=>{
+    desboardController.renderupdateStudentForm(req,res)
+})
+app.post('/updatestudentdata/:id',auth,(req,res)=>{
+    desboardController.updateStudent(req,res)
+})
+app.get('/download-report', desboardController.generateCSV);
+app.get('/logout', (req, res) => ragisterController.logout(req, res));
 
 app.listen(PORT, () => {
     // Establishing a connection to MongoDB using Mongoose
