@@ -1,10 +1,11 @@
 // Importing the Express framework
 import express from 'express'; 
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import RegisteredController from './src/controllers/registered.controller.js';
 import DeshboardController from './src/controllers/deshboard.controller.js';
 import path from 'path';
 //import expres session
-import session  from 'express-session'
 // Importing the dotenv package to load environment variables from the .env file
 import dotenv from 'dotenv';
 // Importing the function to create a Mongoose connection from mongooseConfig.js
@@ -24,13 +25,17 @@ const desboardController = new DeshboardController()
 const app = express(); 
 app.use(
     session({
-      secret: 'your-secret-key', // Replace with your own secret key
-      resave: false,
-      saveUninitialized: true,
-      cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // Session expires in 1 day
-      }
-    })
+        secret: 'your-secret-key', // Replace with your own secret key
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({ 
+          mongoUrl: process.env.MONGOURL,
+          collectionName: 'sessions', // Name of the sessions collection
+        }),
+        cookie: {
+          maxAge: 1000 * 60 * 60 * 24, // Session expires in 1 day
+        },
+      })
   );
 app.use(express.urlencoded({extended:true}))
 // setup view engine settings
@@ -83,7 +88,7 @@ app.post('/updatestudentdata/:id',auth,(req,res)=>{
 app.get('/download-report', desboardController.generateCSV);
 app.get('/logout', (req, res) => ragisterController.logout(req, res));
 
-app.listen(() => {
+app.listen(PORT,() => {
     // Establishing a connection to MongoDB using Mongoose
     createMongooseConnection();
     // Logging a message to indicate that the server is running
