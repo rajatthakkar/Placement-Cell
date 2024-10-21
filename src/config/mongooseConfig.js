@@ -15,11 +15,14 @@ console.log('MongoDB URL:', url);   // Output: MongoDB URL: mongodb://localhost:
 // Function to create a connection to MongoDB using Mongoose
 const createMongooseConection = async () => {
   try {
-    await mongoose.connect(url);
+    await mongoose.connect(url, {
+        useNewUrlParser: true,  // You can remove this
+        useUnifiedTopology: true,  // You can remove this
+    });
     console.log('MongoDB connected successfully');
-  } catch (error) {
+} catch (error) {
     console.error('MongoDB connection error:', error);
-  }
+}
 };
 // Exporting the createMongooseConection function for use in other modules
 export default createMongooseConection; 
