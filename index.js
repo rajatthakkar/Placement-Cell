@@ -83,11 +83,11 @@ app.post('/updatestudentdata/:id',auth,(req,res)=>{
 app.get('/download-report', desboardController.generateCSV);
 app.get('/logout', (req, res) => ragisterController.logout(req, res));
 
-app.listen(PORT, () => {
+app.listen(3000, () => {
     // Establishing a connection to MongoDB using Mongoose
     createMongooseConnection();
     // Logging a message to indicate that the server is running
-    console.log(`Server is running at port ${PORT}`);
+    console.log(`Server is running at port 3000`);
 });
 
 // Exporting the app instance for use in other modules
